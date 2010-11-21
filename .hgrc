@@ -1,0 +1,18 @@
+[ui]
+username = Raphanus Lo <coldturnip@gmail.com>
+style = ~/.hg.conf/gitLogStyle.style
+
+[defaults]
+cdiff = -q
+
+[extensions]
+hgext.extdiff =
+pager =
+
+[pager]
+pager = LESS='FSRX' less
+
+[extdiff]
+cmd.vdiff = vimdiff
+cmd.cdiff = colordiff
+opts.cdiff = -uprN

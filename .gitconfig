@@ -1,0 +1,29 @@
+[color]
+    diff = auto
+    ui = auto
+
+[user]
+    name = COLDTURNIP
+    email = coldturnip@gmail.com
+[core]
+    editor = vim 
+
+; Use git as the differ editor
+[diff]
+    external = git_diff_wrapper
+
+[pager]
+    diff =
+
+[alias]
+    rb = rebase
+    ;srb = svn rebase
+    ;sci = svn dcommit
+    st = status
+    ci = commit
+    co = checkout
+    ;pu = pull
+    ;pullr = pull --rebase
+    ;pur = pull --rebase
+    ;ps = push
+
