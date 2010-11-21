@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/coldturnip/smbSpider/worksrc/donut-ga/out/target/common/docs/offline-sdk'
+let g:netrw_dirhist_2='/home/coldturnip/bin'
+let g:netrw_dirhist_3='/home/coldturnip/mysrc/KeinePreprocessor'
+let g:netrw_dirhist_4='/home/coldturnip/mysrc/wa2_cdip/renpy-6.11.1/renpy'
