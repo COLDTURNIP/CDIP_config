@@ -16,3 +16,7 @@ pager = LESS='FSRX' less
 cmd.vdiff = vimdiff
 cmd.cdiff = colordiff
 opts.cdiff = -uprN
+
+[alias]
+st = status
+
