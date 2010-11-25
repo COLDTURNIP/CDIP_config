@@ -117,9 +117,9 @@ set tabstop=4
     autocmd BufRead *.py   set ai sw=2 ts=2 sts=2 fdm=indent et 
     autocmd BufRead *.c    set ai sw=4 ts=4 sts=4 fdm=indent et 
     autocmd BufRead *.cpp  set ai sw=4 ts=4 sts=4 fdm=indent et 
-    autocmd BufRead *.go   set ai sw=4 ts=4 sts=4 fdm=indent
+    autocmd BufRead *.go   set ai sw=4 ts=4 sts=4 fdm=indent noet
     autocmd BufRead *.java set ai sw=4 ts=4 sts=4 fdm=indent et 
-    autocmd BufRead *.mk   set ai sw=4 ts=4 sts=4
+    autocmd BufRead *.mk   set ai sw=4 ts=4 sts=4 noet
     autocmd BufRead *.vala set ai sw=4 ts=4 sts=4 fdm=indent et 
     autocmd BufRead *.vapi set ai sw=4 ts=4 sts=4 fdm=indent et 
 "============ indent ============
