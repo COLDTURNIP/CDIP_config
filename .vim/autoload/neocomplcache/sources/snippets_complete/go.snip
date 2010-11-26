@@ -1,0 +1,167 @@
+snippet     if
+abbr        if () {}
+    if ${1:/* condition */} {
+        ${0:/* code */}
+    }
+
+snippet else
+    else {
+        ${0}
+    }
+
+snippet elseif
+    else if ${1:/* condition */} {
+        ${0}
+    }
+
+snippet     ifelse
+abbr        if () {} else {}
+    if ${1:condition} {
+        ${2}
+    } else {
+        ${3}
+    }
+
+snippet     for
+abbr        for () {}
+    for ${1:/* InitStmt; Condition; PostStmt */} {
+        ${0}
+    }
+
+snippet     switch
+abbr        switch () {}
+    switch ${1:/* SimpleStmt; Expression */} {
+    case ${2:/* ExpressionList */}:
+        ${0}
+    }
+
+snippet     select
+abbr        select {}
+    select {
+    case ${1:/* send / receive */}:
+        ${0}
+    }
+
+snippet     func
+abbr        func() {}
+    func ${1:funcName}(${2:argList}) ${3:returnList} {
+        ${0}
+    }
+
+snippet     mefunc
+abbr        func() {}
+    func (${1:receiver}) ${2:funcName}(${3:argList}) ${4:returnList} {
+        ${0}
+    }
+
+snippet     lambda
+abbr        func(${1:argList}) ${2:returnList} {${3}}()${0}
+
+snippet     makesillen
+abbr        make([]T, len)
+    make([]${1:baseType}, ${2:length})${0}
+
+snippet     makesilcap
+abbr        make([]T, len, cap)
+    make([]${1:baseType}, ${2:length}, ${3:capacity})${0}
+
+snippet     makemap
+abbr        make(map[key] val)
+    make(map[${1:keyType}] ${2:valType})${0}
+
+snippet     makemapcap
+abbr        make(map[key] val, cap)
+    make(map[${1:keyType}] ${2:valType}, ${3:capacity})${0}
+
+snippet     makechan
+abbr        make(chan type)
+    make(chan ${1:baseType})${0}
+
+snippet     makechanbuf
+abbr        make(chan baseType, bufferSize)
+    make(chan ${1:baseType}, ${2:bufferSize})${0}
+
+snippet     struct
+abbr        struct {}
+    struct {
+        ${0:/* data */}
+    }
+
+# Typedef struct
+snippet type_struct
+    type ${1:name} struct {
+        ${0:/* data */}
+    }
+
+# Typedef interface
+snippet type_interface
+    type ${1:name} interface {
+        ${0:/* method */}
+    }
+
+snippet     constlist
+abbr        const ()
+    const {
+        ${0}
+    }
+
+snippet     enum
+abbr        const ()
+    const (
+        ${1:firstValue} = ${2:/*iota function*/}
+        ${0}
+    )
+
+snippet     varlist
+abbr        var ()
+    var (
+        ${0}
+    }
+
+# main function.
+snippet main
+    func main()
+    {
+        ${0}
+        os.Exit(0)
+    }
+
+# import packages
+snippet import
+    import (
+        ${0}
+    )
+
+# package name
+snippet package
+    package ${0}
+
+# Typedef
+snippet typedef
+abbr    type customType baseType
+    type ${1:customType} ${2:baseType
+
+snippet typelist
+abbr    type ()
+    type (
+        ${0}
+    )
+
+snippet Printf
+    fmt.Printf("${1}\n"${2})${0}
+
+snippet Println
+    fmt.Println("${1}")${0}
+
+snippet Fprintf
+    fmt.Fprintf(${1:os.Stderr}, "${2}\n"${3})
+    ${0}
+
+snippet Fprintln
+    fmt.Fprintln(${1:os.Stderr}, "${2}")
+    ${0}
+
+snippet comment
+alias /*
+    /* ${1:comment} */
+    ${0}
