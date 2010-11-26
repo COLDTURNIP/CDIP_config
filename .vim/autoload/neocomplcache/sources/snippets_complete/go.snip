@@ -1,5 +1,5 @@
-snippet     if
-abbr        if () {}
+snippet if
+abbr    if () {}
     if ${1:/* condition */} {
         ${0:/* code */}
     }
@@ -14,29 +14,48 @@ snippet elseif
         ${0}
     }
 
-snippet     ifelse
-abbr        if () {} else {}
+snippet ifelse
+abbr        if cond {} else {}
     if ${1:condition} {
         ${2}
     } else {
         ${3}
     }
 
-snippet     for
-abbr        for () {}
-    for ${1:/* InitStmt; Condition; PostStmt */} {
+snippet for
+abbr    for init; cond; post {}
+    for ${1:initStmt}; ${2:condition}; ${3:postStmt} {
         ${0}
     }
 
-snippet     switch
-abbr        switch () {}
-    switch ${1:/* SimpleStmt; Expression */} {
-    case ${2:/* ExpressionList */}:
+snippet forcond
+abbr    for cond {}
+    for ${1:condition} {
         ${0}
     }
 
-snippet     select
-abbr        select {}
+snippet forrange
+abbr    for expr := range expr {}
+    for ${1:variable} := range ${2:iterable} {
+        ${0}
+    }
+
+snippet switch
+abbr    switch expr {}
+    switch ${1} {
+    case ${2:matchCase}:
+        ${0}
+    }
+
+snippet switchCond
+abbr    switch {}
+    switch {
+    case ${1:condition}:
+        ${0}
+    }
+
+snippet select
+abbr    select {}
     select {
     case ${1:/* send / receive */}:
         ${0}
@@ -81,6 +100,14 @@ snippet     makechanbuf
 abbr        make(chan baseType, bufferSize)
     make(chan ${1:baseType}, ${2:bufferSize})${0}
 
+snippet     append
+abbr        append(dest, src...)
+    append(${1:dest}, ${2:src})${0}
+
+snippet     copy
+abbr        copy(dest, src)
+    copy(${1:dest}, ${2:src})${0}
+
 snippet     struct
 abbr        struct {}
     struct {
@@ -120,16 +147,34 @@ abbr        var ()
 
 # main function.
 snippet main
-    func main()
-    {
+    func main() {
         ${0}
         os.Exit(0)
     }
 
+# package initialize function
+snippet init
+    func init() {
+        ${0}
+    }
+
 # import packages
 snippet import
+abbr    import "pkg"
+    import "${1:package}"
+
+snippet importalias
+abbr    import alias "pkg"
+    import ${1:alias} "${2:package}
+
+snippet importlocal
+abbr    import . "pkg"
+    import . "${1:package}"
+
+snippet importlist
+abbr    import ()
     import (
-        ${0}
+        "${1:package}"${0}
     )
 
 # package name
@@ -160,6 +205,12 @@ snippet Fprintf
 snippet Fprintln
     fmt.Fprintln(${1:os.Stderr}, "${2}")
     ${0}
+
+snippet panic
+    panic(${1})${0}
+
+snippet recover
+    recover()${0}
 
 snippet comment
 alias /*
