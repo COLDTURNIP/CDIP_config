@@ -1,6 +1,9 @@
 [color]
     diff = auto
     ui = auto
+    status = auto
+    branch = auto
+    log = auto
 
 [user]
     name = COLDTURNIP
@@ -26,4 +29,5 @@
     ;pullr = pull --rebase
     ;pur = pull --rebase
     ;ps = push
+    cp = cherry-pick
 
