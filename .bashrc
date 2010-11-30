@@ -85,6 +85,25 @@ alias la='ls -Al'
 #alias mv='mv -i'
 alias md='mkdir'
 
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+  if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+  fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+  if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+  fi
+
 
 # -*-*-*-*- COLDTURNIP's personal setting -*-*-*-*-
 
@@ -144,37 +163,22 @@ function __cdipShowPath()
       export CSCOPE_EDITOR=vim
   fi
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-  if [ -f ~/.bash_aliases ]; then
-      . ~/.bash_aliases
-  fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-  if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-      . /etc/bash_completion
-  fi
-
-# COLDTURNIP: my shell scripts
+# my shell scripts
   . ~/bin/cdipPathUtils.sh
   . ~/bin/cdipSrcUtils.sh
 
-# COLDTURNIP: for Java development
+# for Java development
   export JAVA_HOME=/usr/lib/java-1.5.0-sun
   export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
 
-# COLDTURNIP: for Android development
+# for Android development
   #__cdipAppendPathSavely /home/coldturnip/lib/android-sdk-linux_86/tools
 
-# COLDTURNIP: for scala
+# for scala
   #SCALA_HOME=/home/coldturnip/bin/scala-2.8.0.RC1
   #__cdipAppendPathSavely $SCALA_HOME/bin
 
-# COLDTURNIP: for Go language
+# for Go language
   # system variables for compiler
   export GOROOT=$HOME/go
   export GOARCH=amd64
@@ -186,7 +190,7 @@ function __cdipShowPath()
   __cdipAppendPyPathSavely $HOME/src/goscons
 
 
-# COLDTURNIP: for Google Storage client (gsutil)
+# for Google Storage client (gsutil)
   #__cdipAppendPathSavely $HOME/bin/gsutil_client
 
 
