@@ -298,10 +298,10 @@ let g:SrcExpl_isUpdateTags = 1
 
 
 "============ Cscope ============
-"if has("cscope")
-"    set csto=1
-"    set cst
-"    set nocsverb
+if has("cscope")
+    set csto=1
+    set cst
+    set nocsverb
 "    " add any database in current directory
 "    if filereadable("cscope.out")
 "        cs add cscope.out
@@ -323,11 +323,11 @@ let g:SrcExpl_isUpdateTags = 1
 "    else
 "        cs add $CSCOPE_DB
 "    endif
-"endif
-""============ Cscope ============
-"
-"
-""============ ctags ============
+endif
+"============ Cscope ============
+
+
+"============ ctags ============
 "" add any database in current directory
 "if filereadable("tags")
 "    set tag=tags
