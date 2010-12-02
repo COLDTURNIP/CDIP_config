@@ -281,56 +281,80 @@ let Tlist_Enable_Fold_Column = 0
 "============ TagList ============
 
 
-"============ Cscope ============
-if has("cscope")
-    set csto=1
-    set cst
-    set nocsverb
-    " add any database in current directory
-    if filereadable("cscope.out")
-        cs add cscope.out
-    " else add database pointed to by environment
-    elseif $CSCOPE_DB == ""
-        let mysrctop = $CDIP_TOP
-        let mytagpath = $CDIP_TAG_PATH
-        if filereadable(mytagpath."/cscope_c.out")
-            autocmd BufRead *.c    exec("cs add ".mytagpath."/cscope_c.out ".mysrctop)
-            autocmd BufRead *.cpp  exec("cs add ".mytagpath."/cscope_c.out ".mysrctop)
-            autocmd BufRead *.h    exec("cs add ".mytagpath."/cscope_c.out ".mysrctop)
-        endif
-        if filereadable(mytagpath."/cscope_j.out")
-            autocmd BufRead *.java exec("cs add ".mytagpath."/cscope_j.out ".mysrctop)
-        endif
-        if filereadable(mytagpath."/cscope.out")
-            autocmd BufRead *.java exec("cs add ".mytagpath."/cscope.out ".mysrctop)
-        endif
-    else
-        cs add $CSCOPE_DB
-    endif
-endif
-"============ Cscope ============
+"============ Source Explorer ============
+"nmap <F5> :SrcExplToggle<CR>
+let g:SrcExpl_winHeight = 8
+let g:SrcExpl_jumpKey = "<ENTER>"
+let g:SrcExpl_pluginList = [ 
+        \ "__Tag_List__", 
+        \ "_NERD_tree_", 
+        \ "Source_Explorer" 
+        \ ]
+let g:SrcExpl_searchLocalDef = 1
+let g:SrcExpl_isUpdateTags = 1
+"let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+"let g:SrcExpl_updateTagsKey = "<F12>" 
+"============ Source Explorer ============
 
 
+"============ Cscope ============
+"if has("cscope")
+"    set csto=1
+"    set cst
+"    set nocsverb
+"    " add any database in current directory
+"    if filereadable("cscope.out")
+"        cs add cscope.out
+"    " else add database pointed to by environment
+"    elseif $CSCOPE_DB == ""
+"        let mysrctop = $CDIP_TOP
+"        let mytagpath = $CDIP_TAG_PATH
+"        if filereadable(mytagpath."/cscope_c.out")
+"            autocmd BufRead *.c    exec("cs add ".mytagpath."/cscope_c.out ".mysrctop)
+"            autocmd BufRead *.cpp  exec("cs add ".mytagpath."/cscope_c.out ".mysrctop)
+"            autocmd BufRead *.h    exec("cs add ".mytagpath."/cscope_c.out ".mysrctop)
+"        endif
+"        if filereadable(mytagpath."/cscope_j.out")
+"            autocmd BufRead *.java exec("cs add ".mytagpath."/cscope_j.out ".mysrctop)
+"        endif
+"        if filereadable(mytagpath."/cscope.out")
+"            autocmd BufRead *.java exec("cs add ".mytagpath."/cscope.out ".mysrctop)
+"        endif
+"    else
+"        cs add $CSCOPE_DB
+"    endif
+"endif
+""============ Cscope ============
+"
+"
+""============ ctags ============
+"" add any database in current directory
+"if filereadable("tags")
+"    set tag=tags
+"" else add database pointed to by environment
+"else
+"    let mysrctop = $CDIP_TOP
+"    if filereadable(mysrctop."/.cdip_tags_c")
+"        autocmd BufRead *.c    exec("set tag=".mysrctop."/.cdip_tags_c")
+"        autocmd BufRead *.cpp  exec("set tag=".mysrctop."/.cdip_tags_c")
+"        autocmd BufRead *.h    exec("set tag=".mysrctop."/.cdip_tags_c")
+"    endif
+"    if filereadable(mysrctop."/.cdip_tags_j")
+"        autocmd BufRead *.java exec("set tag=".mysrctop."/.cdip_tags_j ")
+"    endif
+"    if filereadable(mysrctop."/tags")
+"        set tag=mysrctop."/tags"
+"    endif
+"endif
 "============ ctags ============
-" add any database in current directory
-if filereadable("tags")
-    set tag=tags
-" else add database pointed to by environment
-else
-    let mysrctop = $CDIP_TOP
-    if filereadable(mysrctop."/.cdip_tags_c")
-        autocmd BufRead *.c    exec("set tag=".mysrctop."/.cdip_tags_c")
-        autocmd BufRead *.cpp  exec("set tag=".mysrctop."/.cdip_tags_c")
-        autocmd BufRead *.h    exec("set tag=".mysrctop."/.cdip_tags_c")
-    endif
-    if filereadable(mysrctop."/.cdip_tags_j")
-        autocmd BufRead *.java exec("set tag=".mysrctop."/.cdip_tags_j ")
-    endif
-    if filereadable(mysrctop."/tags")
-        set tag=mysrctop."/tags"
-    endif
-endif
-"============ ctags ============
+
+
+"============ Trinity ============
+nmap <F4> :TrinityToggleAll<CR> 
+nmap <F5> :TrinityToggleSourceExplorer<CR> 
+"nmap <F6> :TrinityToggleTagList<CR> " duplicated
+nmap <F7> :TrinityToggleNERDTree<CR>
+"============ Trinity ============
 
 
 "============ vala support ============
