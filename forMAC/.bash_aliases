@@ -5,6 +5,7 @@
 # shell
 alias h='history'
 alias cls='clear'
+alias tree='tree -C'
 
 # tmux 256 color support
 alias tmux='TERM=xterm-256color tmux'
