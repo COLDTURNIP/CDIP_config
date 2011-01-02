@@ -153,6 +153,9 @@ function __cdipShowPath()
   . ~/bin/cdipPathUtils.sh
   . ~/bin/cdipSrcUtils.sh
 
+# local executable
+  __cdipAppendPathSavely $HOME/bin
+
 # for Java development
   export JAVA_HOME=/usr/lib/java-1.5.0-sun
   export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
