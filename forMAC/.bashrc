@@ -128,6 +128,11 @@ function __cdipShowPath()
 # settings
 #
 
+# Set the $HOME/bin to the first executable path
+_targetPath="$HOME/bin"
+export PATH=$_targetPath:${PATH/$_targetPath:/}
+
+
 # set bash to vi mode
   #set -o vi
 
@@ -152,9 +157,6 @@ function __cdipShowPath()
 # my shell scripts
   . ~/bin/cdipPathUtils.sh
   . ~/bin/cdipSrcUtils.sh
-
-# local executable
-  __cdipAppendPathSavely $HOME/bin
 
 # for Java development
   export JAVA_HOME=/usr/lib/java-1.5.0-sun
