@@ -13,7 +13,7 @@
 
 ; Use git as the differ editor
 [diff]
-    ;external = git_diff_wrapper
+    external = git_diff_wrapper
     tool = vimdiff
 
 [difftool]
