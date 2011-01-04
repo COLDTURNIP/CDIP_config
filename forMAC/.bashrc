@@ -163,7 +163,7 @@ export PATH=$_targetPath:${PATH/$_targetPath:/}
   export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
 
 # for Android development
-  __cdipAppendPathSavely $HOME/android-sdk-mac_86/tools
+  __cdipAppendPathSavely $HOME/android-sdk-mac_86/platform-tools
 
 # for scala
   #SCALA_HOME=/home/coldturnip/bin/scala-2.8.0.RC1

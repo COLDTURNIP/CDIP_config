@@ -9,7 +9,7 @@
     name = COLDTURNIP
     email = coldturnip@gmail.com
 [core]
-    editor = vim 
+    editor = /usr/bin/vim 
 
 ; Use git as the differ editor
 [diff]

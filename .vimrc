@@ -80,8 +80,12 @@ set tabstop=4
     "highlight Search term=reverse ctermbg=4 ctermfg=7
     "highlight Normal ctermbg=black ctermfg=white
 " txt width alarm
-    autocmd BufRead,BufNewFile *.txt syntax match Search /\%<82v.\%>81v/
-    "autocmd BufRead,BufNewFile *.txt syntax match ErrorMsg /\%>80v.\+/
+    if v:version >= 703
+        set colorcolumn=81
+    else
+        autocmd BufRead,BufNewFile *.txt syntax match Search /\%<82v.\%>81v/
+        "autocmd BufRead,BufNewFile *.txt syntax match ErrorMsg /\%>80v.\+/
+    endif
 "============ visual settings ============
 
 
