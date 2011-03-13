@@ -1,0 +1,42 @@
+# Created by COLDTURNIP
+
+# shell
+alias ll='ls -l'
+alias la='ls -Al'
+#alias l='ls -CF'
+#alias cp='cp -i'
+#alias mv='mv -i'
+alias h='history'
+alias cls='clear'
+alias vi=vim
+#alias "tree=tree -A -I 'CVS|*~'"
+alias 'mkdir=mkdir -p'
+alias 'dus=du -ms * | sort -n'
+alias 'cd..=cd ..'
+alias 'grep=grep --color=auto'
+
+# tmux 256 color support
+alias tmux='TERM=xterm-256color tmux'
+
+# Python
+alias py='python'
+alias jy='jython'
+alias ipy='ipython'
+
+# system control
+alias psmake="ps aux | grep 'make'"
+
+# Global aliases (expand whatever their position)
+#  e.g. find . E L
+alias -g L='| less'
+alias -g H='| head'
+alias -g S='| sort'
+alias -g T='| tail'
+alias -g N='> /dev/null'
+alias -g E='2> /dev/null'
+
+# Quick find
+f() {
+    echo "find . -iname \"*$1*\""
+    find . -iname "*$1*"
+}
