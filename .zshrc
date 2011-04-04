@@ -106,11 +106,11 @@ __apendPathSavely()
 
   # for Go language
     # system variables for compiler
-    export GOROOT=$HOME/go
-    export GOARCH=amd64
-    export GOOS=linux
-    export GOBIN=$GOROOT/bin
-    __apendPathSavely $GOBIN
+    #export GOROOT=$HOME/go
+    #export GOARCH=amd64
+    #export GOOS=linux
+    #export GOBIN=$GOROOT/bin
+    #__apendPathSavely $GOBIN
 
     # PYTHONPATH for Go Scons
     #__apendPathSavely $HOME/src/goscons
