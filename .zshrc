@@ -211,3 +211,7 @@ sudo-command-line() {
 zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
 
+# Import my script functions
+  #source ~/bin/cdipPathUtils.sh
+  #source ~/bin/cdipSrcUtils.sh
+
