@@ -103,7 +103,8 @@ __apendPathSavely()
     #export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
 
   # for Android development
-    #__apendPathSavely $HOME/lib/android-sdk-linux_86/tools
+    #__apendPathSavely $HOME/tools/android-sdk-linux_x86/platform-tools
+    #__apendPathSavely $HOME/tools/android-sdk-linux_x86/tools
 
   # for scala
     #SCALA_HOME=/home/coldturnip/bin/scala-2.8.0.RC1
