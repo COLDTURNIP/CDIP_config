@@ -11,6 +11,8 @@ zstyle :compinstall filename '/home/coldturnip/.zshrc'
 
 
 #### Added by COLDTURNIP ####
+# proxy setting for ASUS
+#export http_proxy="user_name:passwd@addres.to.proxy:port"
 
 # next lets set some enviromental/shell pref stuff up
 # setopt NOHUP
