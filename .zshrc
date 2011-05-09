@@ -78,6 +78,9 @@ zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
 source $HOME/.zsh_alias
 
 # Set prompt
+autoload -Uz promptinit
+promptinit
+prompt walters
 PS1=$'%{\e[0;37m%}%B%*%b|%{\e[0;33m%}%m:%{\e[0;37m%}%~%(!.#.$) %{\e[00m%}'
 
 # set $PATH
