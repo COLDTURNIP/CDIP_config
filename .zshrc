@@ -24,6 +24,7 @@ unsetopt BG_NICE        # do NOT nice bg commands
 # setopt HASH_CMDS      # turns on hashing
 setopt ALL_EXPORT
 setopt INTERACTIVE_COMMENTS
+setopt KSH_ARRAYS       # set 0-based array indexing
 
 # Auto complete
 setopt AUTO_LIST        # these two should be turned off
