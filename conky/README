@@ -1,0 +1,23 @@
+Prepare
+=======
+Install conky:
+
+    sudo apt-get install conky
+
+
+Configuration
+=============
+Copy this folder to $HOME/.config , and link scripts/start_conky.sh to some place
+executable, e.g. $HOME/bin .
+
+    cp -r conky $HOME/.config/
+    ln -s $HOME/.config/conky/scripts/start_conky.sh $HOME/bin/._start_conky.sh
+
+Finally add a record to start Conky when boot finished. You can do this with
+System -> Preferences -> Sessions .
+
+
+TODOs
+=====
+The temperatrue of CPU is not available now.
+
