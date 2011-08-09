@@ -4,6 +4,10 @@ Install conky:
 
     sudo apt-get install conky
 
+To get temperature information, you need to install lm-sensors:
+
+    sudo apt-get install lm-sensors
+
 
 Configuration
 =============
@@ -17,7 +21,8 @@ Finally add a record to start Conky when boot finished. You can do this with
 System -> Preferences -> Sessions .
 
 
-TODOs
-=====
-The temperatrue of CPU is not available now.
+About Temperature
+=================
+Check the format layout of `sensors`, and modify corresponded lines in
+theme/conkyrc .
 
