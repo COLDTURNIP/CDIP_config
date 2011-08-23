@@ -19,14 +19,15 @@ zstyle :compinstall filename '/home/coldturnip/.zshrc'
 #setopt NOTIFY
 #setopt NO_FLOW_CONTROL
 # setopt AUTO_REMOVE_SLASH
-# setopt AUTO_RESUME		# tries to resume command of same name
-unsetopt BG_NICE		# do NOT nice bg commands
-# setopt HASH_CMDS		# turns on hashing
+# setopt AUTO_RESUME    # tries to resume command of same name
+unsetopt BG_NICE        # do NOT nice bg commands
+# setopt HASH_CMDS      # turns on hashing
 setopt ALL_EXPORT
 setopt INTERACTIVE_COMMENTS
+setopt KSH_ARRAYS       # set 0-based array indexing
 
 # Auto complete
-setopt AUTO_LIST		# these two should be turned off
+setopt AUTO_LIST        # these two should be turned off
 setopt AUTO_MENU
 setopt MENU_COMPLETE
 autoload -U compinit
