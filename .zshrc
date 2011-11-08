@@ -169,11 +169,6 @@ __apendPathSavely()
     # PYTHONPATH for Go Scons
     #__apendPathSavely $HOME/src/goscons
 
-
-  # for Google Storage client (gsutil)
-    #__apendPathSavely $HOME/bin/gsutil_client
-
-
   # for Ruby
     # RVM
     [[ -s "/Users/coldturnip/.rvm/scripts/rvm" ]] && source "/Users/coldturnip/.rvm/scripts/rvm"
