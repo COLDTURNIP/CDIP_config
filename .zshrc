@@ -216,7 +216,7 @@ bindkey "\e[1~" beginning-of-line
 bindkey "\e[3~" delete-char
 bindkey "\e[4~" end-of-line
 # Bind special keys according to readline configuration
-eval "$(sed -n 's/^/bindkey /; s/: / /p' /etc/inputrc)" > /dev/null
+#eval "$(sed -n 's/^/bindkey /; s/: / /p' /etc/inputrc)" > /dev/null
 # Bind key for Mac
 #bindkey "^[[H" beginning-of-line
 #bindkey "^[[F" end-of-line
