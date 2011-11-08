@@ -1,6 +1,7 @@
 # Created by COLDTURNIP
 
 # shell
+alias ls='ls -G'
 alias ll='ls -l'
 alias la='ls -Al'
 #alias l='ls -CF'
@@ -40,3 +41,6 @@ f() {
     echo "find . -iname \"*$1*\""
     find . -iname "*$1*"
 }
+
+# workaround for Ruby rake[]
+alias rake="noglob rake"

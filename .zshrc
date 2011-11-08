@@ -15,21 +15,66 @@ zstyle :compinstall filename '/home/coldturnip/.zshrc'
 #export http_proxy="user_name:passwd@addres.to.proxy:port"
 
 # next lets set some enviromental/shell pref stuff up
-# setopt NOHUP
-#setopt NOTIFY
-#setopt NO_FLOW_CONTROL
-# setopt AUTO_REMOVE_SLASH
-# setopt AUTO_RESUME    # tries to resume command of same name
-unsetopt BG_NICE        # do NOT nice bg commands
-# setopt HASH_CMDS      # turns on hashing
-setopt ALL_EXPORT
-setopt INTERACTIVE_COMMENTS
-setopt KSH_ARRAYS       # set 0-based array indexing
+#setopt no_flow_control
+setopt    all_export
+setopt    auto_pushd    # Make cd push the old directory onto the directory stack.
+#setopt    auto_remove_slash
+#setopt    auto_resume   # tries to resume command of same name
+setopt    bad_pattern
+setopt no_bg_nice       # do NOT nice bg commands
+setopt    brace_ccl
+#setopt    correct_all
+setopt    cdable_vars
+setopt    chase_links
+setopt no_clobber       # Don’t write over existing files with >, use >! instead
+setopt no_csh_junkie_loops
+setopt no_csh_junkie_quotes
+setopt    extended_glob # Treat the [#~^] characters as part of patterns for filename
+setopt    hash_cmds     # turns on hashing
+setopt    hash_dirs
+setopt    hash_list_all
+setopt no_hup
+setopt no_ignore_braces
+setopt no_ignore_eof    # disable this to terminat session with EOF (C-d)
+setopt    interactive_comments
+#setopt    function_argzero
+setopt    ksh_arrays    # set 0-based array indexing
+setopt    long_list_jobs
+setopt    magic_equal_subst
+setopt no_mark_dirs
+setopt    multios
+setopt    nomatch
+setopt    notify
+setopt no_null_glob
+setopt    path_dirs
+setopt    posix_builtins
+setopt no_print_exit_value
+setopt    pushd_ignore_dups
+setopt no_pushd_minus
+setopt    pushd_to_home
+setopt    rc_expand_param
+setopt no_rc_quotes
+setopt no_rm_star_silent
+setopt no_sh_file_expansion
+setopt    short_loops
+setopt no_sun_keyboard_hack
+setopt no_verbose
 
 # Auto complete
-setopt AUTO_LIST        # these two should be turned off
-setopt AUTO_MENU
-setopt MENU_COMPLETE
+setopt    auto_list        # these two should be turned off
+setopt    auto_menu
+setopt    auto_param_keys
+setopt    complete_in_word
+setopt no_csh_null_glob
+setopt    glob
+setopt no_glob_assign
+setopt    glob_complete
+setopt no_glob_dots
+setopt no_glob_subst
+setopt no_list_ambiguous
+setopt    list_types
+setopt no_menu_complete    # this will override automenu
+setopt    complete_in_word
 autoload -U compinit
 compinit
 
@@ -82,7 +127,9 @@ source $HOME/.zsh_alias
 autoload -Uz promptinit
 promptinit
 prompt walters
-PS1=$'%{\e[0;37m%}%B%*%b|%{\e[0;33m%}%m:%{\e[0;37m%}%~%(!.#.$) %{\e[00m%}'
+#PS1=$'%{\e[0;37m%}%B%*%b|%{\e[0;33m%}%m:%{\e[0;37m%}%~%(!.#.$) %{\e[00m%}'
+PS1='%F{blue}(%F{green}%n%F{blue}@%F{green}%m%F{blue})%F{green}-%F{blue}(%F{green}%D{%I:%M%P}%F{blue}-:-%F{green}%D{%m}%F{blue}%F{green}/%D{%d}%F{blue})
+%}%F{blue}[%F{green}%1~%F{blue}] %f'
 
 # set $PATH
 __apendPathSavely()
@@ -122,9 +169,9 @@ __apendPathSavely()
     # PYTHONPATH for Go Scons
     #__apendPathSavely $HOME/src/goscons
 
-
-  # for Google Storage client (gsutil)
-    #__apendPathSavely $HOME/bin/gsutil_client
+  # for Ruby
+    # RVM
+    [[ -s "/Users/coldturnip/.rvm/scripts/rvm" ]] && source "/Users/coldturnip/.rvm/scripts/rvm"
 
 
   # end set $PATH
@@ -161,14 +208,15 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
-setopt EXTENDED_HISTORY		# puts timestamps in the history
+setopt extended_history        # puts timestamps in the history
+setopt bang_hist
 
 # Set six-key on keyboard
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[3~" delete-char
 bindkey "\e[4~" end-of-line
 # Bind special keys according to readline configuration
-eval "$(sed -n 's/^/bindkey /; s/: / /p' /etc/inputrc)" > /dev/null
+#eval "$(sed -n 's/^/bindkey /; s/: / /p' /etc/inputrc)" > /dev/null
 # Bind key for Mac
 #bindkey "^[[H" beginning-of-line
 #bindkey "^[[F" end-of-line
@@ -181,13 +229,10 @@ setopt CORRECT
 
 # Prompts for confirmation after 'rm *' etc
 # Helps avoid mistakes like 'rm * o' when 'rm *.o' was intended
-setopt RM_STAR_WAIT
+#setopt RM_STAR_WAIT
 
 # Background processes aren't killed on exit of shell
 setopt AUTO_CONTINUE
-
-# Don’t write over existing files with >, use >! instead
-#setopt NOCLOBBER
 
 # Don’t nice background processes
 setopt NO_BG_NICE
