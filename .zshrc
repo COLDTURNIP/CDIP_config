@@ -174,6 +174,11 @@ __apendPathSavely()
     #__apendPathSavely $HOME/bin/gsutil_client
 
 
+  # for Ruby
+    # RVM
+    [[ -s "/Users/coldturnip/.rvm/scripts/rvm" ]] && source "/Users/coldturnip/.rvm/scripts/rvm"
+
+
   # end set $PATH
   unfunction __apendPathSavely
 
