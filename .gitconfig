@@ -23,6 +23,7 @@
     diff =
 
 [alias]
+    br = branch
     rb = rebase
     ;srb = svn rebase
     ;sci = svn dcommit
