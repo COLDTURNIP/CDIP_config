@@ -41,3 +41,6 @@ f() {
     echo "find . -iname \"*$1*\""
     find . -iname "*$1*"
 }
+
+# workaround for Ruby rake[]
+alias rake="noglob rake"
