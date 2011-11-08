@@ -208,7 +208,8 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
-setopt EXTENDED_HISTORY		# puts timestamps in the history
+setopt extended_history        # puts timestamps in the history
+setopt bang_hist
 
 # Set six-key on keyboard
 bindkey "\e[1~" beginning-of-line
