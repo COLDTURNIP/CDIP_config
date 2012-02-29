@@ -42,5 +42,11 @@ f() {
     find . -iname "*$1*"
 }
 
+# emacs
+alias emacs='LC_CTYPE=zh_TW.UTF-8 emacs'
+alias em='emacsclient -n -a "vim" -c'
+alias emd='emacs --daemon'
+alias emt='emacs -nw'
+
 # workaround for Ruby rake[]
 alias rake="noglob rake"
