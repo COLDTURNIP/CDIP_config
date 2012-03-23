@@ -190,12 +190,15 @@ then
 fi
 
 # Set default editor
-if [[ -x $(which vim) ]]
+if [[ -x $(which emacs) ]]
+then
+    export EDITOR="emacs"
+elif [[ -x $(which vim) ]]
 then
     export EDITOR="vim"
-    export USE_EDITOR=$EDITOR
-    export VISUAL=$EDITOR
 fi
+export USE_EDITOR=$EDITOR
+export VISUAL=$EDITOR
 
 # Zsh settings for history
 export HISTIGNORE="&:ls:[bf]g:exit:reset:clear:cd:cd ..:cd.."
