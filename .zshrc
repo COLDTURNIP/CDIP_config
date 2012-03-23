@@ -26,7 +26,7 @@ setopt    brace_ccl
 #setopt    correct_all
 setopt    cdable_vars
 setopt    chase_links
-setopt no_clobber       # Don’t write over existing files with >, use >! instead
+setopt    clobber       # Don’t write over existing files with >, use >! instead
 setopt no_csh_junkie_loops
 setopt no_csh_junkie_quotes
 setopt    extended_glob # Treat the [#~^] characters as part of patterns for filename
