@@ -137,6 +137,8 @@ function __cdipShowPath()
     echo $PATH | sed 's/:/\n/g'
 }
 
+__cdipAppendPathSavely $HOME/bin
+
 
 #
 # settings
@@ -172,7 +174,10 @@ function __cdipShowPath()
   export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
 
 # for Android development
-  #__cdipAppendPathSavely /home/coldturnip/lib/android-sdk-linux_86/tools
+  __cdipAppendPathSavely $HOME/tool/android-sdk-linux/platform-tools
+  __cdipAppendPathSavely $HOME/tool/android-sdk-linux/tools
+  export CCACHE_DIR=$HOME/.android_ccache
+  export USE_CCACHE=1
 
 # for scala
   #SCALA_HOME=/home/coldturnip/bin/scala-2.8.0.RC1
