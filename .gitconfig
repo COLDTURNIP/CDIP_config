@@ -10,6 +10,7 @@
     email = coldturnip@gmail.com
 [core]
     editor = vim 
+    autocrlf = true
 
 ; Use git as the differ editor
 [diff]
