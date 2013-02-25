@@ -9,7 +9,7 @@
     name = COLDTURNIP
     email = coldturnip@gmail.com
 [core]
-    editor = vim 
+    editor = vim
     autocrlf = true
 
 ; Use git as the differ editor
@@ -37,4 +37,7 @@
     ;ps = push
     cp = cherry-pick
     df = difftool
+    rsh = reset --hard
 
+[push]
+	default = simple
