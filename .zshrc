@@ -126,10 +126,11 @@ source $HOME/.zsh_alias
 # Set prompt
 autoload -Uz promptinit
 promptinit
-prompt walters
+#prompt walters
 #PS1=$'%{\e[0;37m%}%B%*%b|%{\e[0;33m%}%m:%{\e[0;37m%}%~%(!.#.$) %{\e[00m%}'
-PS1='%F{blue}(%F{green}%n%F{blue}@%F{green}%m%F{blue})%F{green}-%F{blue}(%F{green}%D{%I:%M%P}%F{blue}-:-%F{green}%D{%m}%F{blue}%F{green}/%D{%d}%F{blue})
-%}%F{blue}[%F{green}%1~%F{blue}] %f'
+PS1='%B%F{black}/*** %F{cyan}%n%F{red}::%F{green}%m%F{black}[%F{yello}%1~%F{black}] ***/
+··» %f'
+RPROMPT='%B%F{black}%~ %b%F{white}(%B%F{yello}%?%b%f'
 
 # set $PATH
 __apendPathSavely()
