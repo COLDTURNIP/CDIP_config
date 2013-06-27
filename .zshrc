@@ -253,6 +253,9 @@ if [[ "$TERM" != "dumb" ]]; then
   fi
 fi
 
+# Set color for less and man page
+source $HOME/.sh_manpage_color
+
 # Command sudo adder: ESC EXC to add sudo at begining
 sudo-command-line() {
   [[ -z $BUFFER ]] && zle up-history

@@ -77,6 +77,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# Set color for less and man page
+source $HOME/.sh_manpage_color
+
 # some more ls aliases
 alias ll='ls -l'
 alias la='ls -Al'
