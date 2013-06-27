@@ -128,7 +128,7 @@ autoload -Uz promptinit
 promptinit
 #prompt walters
 #PS1=$'%{\e[0;37m%}%B%*%b|%{\e[0;33m%}%m:%{\e[0;37m%}%~%(!.#.$) %{\e[00m%}'
-PS1='%B%F{black}/*** %F{cyan}%n%F{red}::%F{green}%m%F{black}[%F{yello}%1~%F{black}] ***/%f%b
+PROMPT='%B%F{black}/*** %F{cyan}%n%F{red}::%F{green}%m%F{black}[%F{yello}%1~%F{black}] ***/%f%b
 %B%F{black}··» %f%b'
 RPROMPT='%B%F{black}%~ %b%F{white}(%B%F{yello}%?%b%f'
 
@@ -185,8 +185,8 @@ then
     export LESS="--ignore-case --LONG-PROMPT --QUIET --chop-long-lines -Sm --RAW-CONTROL-CHARS --quit-if-one-screen --no-init"
     if [[ -x $(which lesspipe.sh) ]]
     then
-	LESSOPEN="| lesspipe.sh %s"
-	export LESSOPEN
+    LESSOPEN="| lesspipe.sh %s"
+    export LESSOPEN
     fi
 fi
 

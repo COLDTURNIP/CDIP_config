@@ -140,9 +140,9 @@ function __cdipShowPath()
     echo $PATH | sed 's/:/\n/g'
 }
 
-#__cdipAppendPathSavely $HOME/bin
-PATH=$HOME/bin:$PATH
-
+# Set the $HOME/bin to the first executable path
+_targetPath="$HOME/bin"
+export PATH=$_targetPath:${PATH/$_targetPath:/}
 
 #
 # settings
