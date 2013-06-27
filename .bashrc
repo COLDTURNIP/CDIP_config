@@ -140,7 +140,8 @@ function __cdipShowPath()
     echo $PATH | sed 's/:/\n/g'
 }
 
-__cdipAppendPathSavely $HOME/bin
+#__cdipAppendPathSavely $HOME/bin
+PATH=$HOME/bin:$PATH
 
 
 #
