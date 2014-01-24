@@ -3,7 +3,7 @@
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[ -z "${PS1}" ] && return
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
@@ -29,8 +29,8 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
+case "${TERM}" in
+    xterm-color|xterm-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -38,7 +38,7 @@ esac
 # should be on the output of commands, not on the prompt
 #force_color_prompt=yes
 
-if [ -n "$force_color_prompt" ]; then
+if [ -n "${force_color_prompt}" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
     # We have color support; assume it's compliant with Ecma-48
     # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
@@ -49,36 +49,31 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+if [ "${color_prompt}" = yes ]; then
+    PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
-case "$TERM" in
+case "${TERM}" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\[\e]0;\u@\h: \w\a\]${PS1}"
     ;;
 *)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+# Basic alaises
+alias ls='ls -G'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 # Set color for less and man page
-source $HOME/.sh_manpage_color
+source ${HOME}/.sh_manpage_color
 
 # some more ls aliases
 alias ll='ls -l'
@@ -113,36 +108,41 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 #
 # utility function
 #
-function __cdipAppendPathSavely()
+function __appendPathSafely()
 {
     local oriTargetPath="$@"
-    if [ ! \( -d $oriTargetPath \) ]; then
-        printf "BASH Error: Invalid path %s\n    Please check ~/.bashrc\n" $oriTargetPath
+    if [ ! \( -d ${oriTargetPath} \) ]; then
+        printf "BASH Error: Invalid path %s\n    Please check ~/.bashrc\n" ${oriTargetPath}
     else
-        local targetPath=`echo :$oriTargetPath | sed "s/\/\+$//"`
-        export PATH=${PATH/$targetPath/}$targetPath
+        local targetPath=$(echo ${oriTargetPath} | sed "s/\/\+$//")
+        export PATH=${targetPath}:${PATH/$targetPath/}
     fi
 }
 
-function __cdipAppendPyPathSavely()
+function __appendPyPathSafely()
 {
     local oriTargetPath="$@"
-    if [ ! \( -d $oriTargetPath \) ]; then
-        printf "BASH Error: Invalid path %s\n    Please check ~/.bashrc\n" $oriTargetPath
+    if [ ! \( -d ${oriTargetPath} \) ]; then
+        printf "BASH Error: Invalid path %s\n    Please check ~/.bashrc\n" ${oriTargetPath}
     else
-        local targetPath=`echo :$oriTargetPath | sed "s/\/\+$//"`
-        export PYTHONPATH=${PYTHONPATH/$targetPath/}$targetPath
+        local targetPath=$(echo ${oriTargetPath} | sed "s/\/\+$//")
+        export PYTHONPATH=${targetPath}:${PATH/$targetPath/}
     fi
 }
 
 function __cdipShowPath()
 {
-    echo $PATH | sed 's/:/\n/g'
+    echo ${PATH} | sed 's/:/\n/g'
+}
+
+function __sourcingConfigSafely()
+{
+    [[ -s $@ ]] && source $@
 }
 
 # Set the $HOME/bin to the first executable path
-_targetPath="$HOME/bin"
-export PATH=$_targetPath:${PATH/$_targetPath:/}
+_targetPath="${HOME}/bin"
+export PATH=${_targetPath}:${PATH/${_targetPath}:/}
 
 #
 # settings
@@ -175,38 +175,42 @@ export PATH=$_targetPath:${PATH/$_targetPath:/}
 
 # for Java development
   export JAVA_HOME=/usr/lib/java-1.5.0-sun
-  export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+  export CLASSPATH=.:${JAVA_HOME}/lib:${JAVA_HOME}/jre/lib
 
 # for Android development
-  __cdipAppendPathSavely $HOME/tool/android-sdk-linux/platform-tools
-  __cdipAppendPathSavely $HOME/tool/android-sdk-linux/tools
+  __appendPathSafely ${HOME}/tools/adt-bundle-mac-x86_64/sdk/platform-tools
   export CCACHE_DIR=$HOME/.android_ccache
   export USE_CCACHE=1
 
 # for scala
   #SCALA_HOME=/home/coldturnip/bin/scala-2.8.0.RC1
-  #__cdipAppendPathSavely $SCALA_HOME/bin
+  #__appendPathSafely $SCALA_HOME/bin
 
 # for Go language
   # system variables for compiler
-  export GOROOT=$HOME/go
+  export GOROOT=${HOME}/src/go
   export GOARCH=amd64
   export GOOS=linux
-  export GOBIN=$GOROOT/bin
-  __cdipAppendPathSavely $GOBIN
+  export GOBIN=${GOROOT}/bin
+  __appendPathSafely ${GOBIN}
 
   # PYTHONPATH for Go Scons
-  __cdipAppendPyPathSavely $HOME/src/goscons
+  #__appendPyPathSafely $HOME/src/goscons
+
+# for Ruby language
+  # RVM
+    __sourcingConfigSafely "${HOME}/.rvm/scripts/rvm"
+    __appendPathSafely ${HOME}/.rvm/bin # Add RVM to PATH for scripting
 
 
 # for Google Storage client (gsutil)
-  #__cdipAppendPathSavely $HOME/bin/gsutil_client
-
+  #__appendPathSafely $HOME/bin/gsutil_client
 
 #
 # finalize setting
 #
-unset __cdipAppendPathSavely
-unset __cdipAppendPyPathSavely
+unset __appendPathSafely
+unset __appendPyPathSafely
+unset __sourcingConfigSafely
 #unset __cdipShowPath
 
