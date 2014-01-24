@@ -121,7 +121,7 @@ zstyle ':completion:*:messages' format $'\e[01;35m -- %d --\e[0m'
 zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
 
 # Aliases
-source $HOME/.zsh_alias
+source ${HOME}/.zsh_alias
 
 # Set prompt
 autoload -Uz promptinit
@@ -133,50 +133,64 @@ PROMPT='%B%F{black}/*** %F{cyan}%n%F{red}::%F{green}%m%F{black}[%F{yello}%1~%F{b
 RPROMPT='%B%F{black}%~ %b%F{white}(%B%F{yello}%?%b%f'
 
 # set $PATH
-__apendPathSavely()
+__appendPathSavely()
 {
     local oriTargetPath="$@"
-    if [ ! \( -d $oriTargetPath \) ]; then
-        printf "ZSH Error: Invalid path %s\n    Please check ~/.zshrc\n" $oriTargetPath
+    if [ ! \( -d ${oriTargetPath} \) ]; then
+        printf "ZSH Error: Invalid path %s\n    Please check ~/.zshrc\n" ${oriTargetPath}
     else
-        local targetPath=`echo :$oriTargetPath | sed "s/\/\+$//"`
-        export PATH=${PATH/$targetPath/}$targetPath
+        local targetPath=$(echo ${oriTargetPath} | sed "s/\/\+$//")
+        export PATH=${targetPath}:${PATH/$targetPath/}
     fi
 }
 
-  # for $HOME/bin
-    __apendPathSavely $HOME/bin
+__sourcingConfigSafely()
+{
+    if [[ -s $@ ]]; then
+        source $@
+    else
+        printf "ZSH Error: Invalid sourcing path %s\n    Please check ~/.zshrc\n" $@
+    fi
+}
+
+
+  # Import my script functions
+  __sourcingConfigSafely ${HOME}/bin/cdipPathUtils.sh
+  __sourcingConfigSafely ${HOME}/bin/cdipSrcUtils.sh
+
+  # for ${HOME}/bin
+    __appendPathSavely ${HOME}/bin
 
   # for Java development
     #export JAVA_HOME=/usr/lib/java-1.5.0-sun
     #export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
 
   # for Android development
-    #__apendPathSavely $HOME/tools/android-sdk-linux_x86/platform-tools
-    #__apendPathSavely $HOME/tools/android-sdk-linux_x86/tools
+    #__appendPathSavely ${HOME}/tools/adt-bundle-mac-x86_64/sdk/platform-tools
+    #__appendPathSavely ${HOME}/tools/adt-bundle-mac-x86_64/sdk/tools
 
   # for scala
     #SCALA_HOME=/home/coldturnip/bin/scala-2.8.0.RC1
-    #__apendPathSavely $SCALA_HOME/bin
+    #__appendPathSavely $SCALA_HOME/bin
 
   # for Go language
     # system variables for compiler
-    #export GOROOT=$HOME/go
+    #export GOROOT=${HOME}/src/go
     #export GOARCH=amd64
-    #export GOOS=linux
-    #export GOBIN=$GOROOT/bin
-    #__apendPathSavely $GOBIN
+    #export GOOS=darwin
+    #export GOBIN=${GOROOT}/bin
+    #__appendPathSavely ${GOBIN}
 
     # PYTHONPATH for Go Scons
-    #__apendPathSavely $HOME/src/goscons
+    #__appendPathSavely ${HOME}/src/goscons
 
   # for Ruby
     # RVM
-    [[ -s "/Users/coldturnip/.rvm/scripts/rvm" ]] && source "/Users/coldturnip/.rvm/scripts/rvm"
-
+    #__sourcingConfigSafely "${HOME}/.rvm/scripts/rvm"
 
   # end set $PATH
-  unfunction __apendPathSavely
+  unfunction __appendPathSavely
+  unfunction __sourcingConfigSafely
 
 # Set less options
 if [[ -x $(which less) ]]
@@ -198,8 +212,8 @@ elif [[ -x $(which vim) ]]
 then
     export EDITOR="vim"
 fi
-export USE_EDITOR=$EDITOR
-export VISUAL=$EDITOR
+export USE_EDITOR=${EDITOR}
+export VISUAL=${EDITOR}
 
 # Zsh settings for history
 export HISTIGNORE="&:ls:[bf]g:exit:reset:clear:cd:cd ..:cd.."
@@ -246,7 +260,7 @@ watch=notme
 export LOGCHECK=60
 
 # Enable color support of ls
-if [[ "$TERM" != "dumb" ]]; then
+if [[ "${TERM}" != "dumb" ]]; then
   if [[ -x `which dircolors` ]]; then
     eval `dircolors -b`
     alias 'ls=ls --color=auto'
@@ -254,18 +268,14 @@ if [[ "$TERM" != "dumb" ]]; then
 fi
 
 # Set color for less and man page
-source $HOME/.sh_manpage_color
+source ${HOME}/.sh_manpage_color
 
 # Command sudo adder: ESC EXC to add sudo at begining
 sudo-command-line() {
-  [[ -z $BUFFER ]] && zle up-history
-  [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
+  [[ -z ${BUFFER} ]] && zle up-history
+  [[ ${BUFFER} != sudo\ * ]] && BUFFER="sudo ${BUFFER}"
   zle end-of-line
 }
 zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
-
-# Import my script functions
-  #source ~/bin/cdipPathUtils.sh
-  #source ~/bin/cdipSrcUtils.sh
 
