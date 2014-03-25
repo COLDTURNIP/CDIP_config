@@ -72,9 +72,6 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Set color for less and man page
-source ${HOME}/.sh_manpage_color
-
 # some more ls aliases
 alias ll='ls -l'
 alias la='ls -Al'
@@ -170,8 +167,11 @@ export PATH=${_targetPath}:${PATH/${_targetPath}:/}
   fi
 
 # my shell scripts
-  . ~/bin/cdipPathUtils.sh
-  . ~/bin/cdipSrcUtils.sh
+  __sourcingConfigSafely ${HOME}/bin/cdipPathUtils.sh
+  __sourcingConfigSafely ${HOME}/bin/cdipSrcUtils.sh
+
+  # Set color for less and man page
+  __sourcingConfigSafely ${HOME}/.sh_manpage_color
 
 # for Java development
   export JAVA_HOME=/usr/lib/java-1.5.0-sun

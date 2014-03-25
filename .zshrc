@@ -154,6 +154,9 @@ __sourcingConfigSafely()
 }
 
 
+  # Set color for less and man page
+  __sourcingConfigSafely ${HOME}/.sh_manpage_color
+
   # Import my script functions
   __sourcingConfigSafely ${HOME}/bin/cdipPathUtils.sh
   __sourcingConfigSafely ${HOME}/bin/cdipSrcUtils.sh
@@ -266,9 +269,6 @@ if [[ "${TERM}" != "dumb" ]]; then
     alias 'ls=ls --color=auto'
   fi
 fi
-
-# Set color for less and man page
-source ${HOME}/.sh_manpage_color
 
 # Command sudo adder: ESC EXC to add sudo at begining
 sudo-command-line() {
