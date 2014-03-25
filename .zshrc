@@ -157,6 +157,9 @@ __sourcingConfigSafely()
   # Set color for less and man page
   __sourcingConfigSafely ${HOME}/.sh_manpage_color
 
+  # OSX only: correct some colors for iTerm2
+  __sourcingConfigSafely ${HOME}/.iterm2_palette.sh
+
   # Import my script functions
   __sourcingConfigSafely ${HOME}/.zsh/plugin-setup.zsh
   __sourcingConfigSafely ${HOME}/bin/cdipPathUtils.sh
