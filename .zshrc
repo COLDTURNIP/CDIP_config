@@ -158,6 +158,7 @@ __sourcingConfigSafely()
   __sourcingConfigSafely ${HOME}/.sh_manpage_color
 
   # Import my script functions
+  __sourcingConfigSafely ${HOME}/.zsh/plugin-setup.zsh
   __sourcingConfigSafely ${HOME}/bin/cdipPathUtils.sh
   __sourcingConfigSafely ${HOME}/bin/cdipSrcUtils.sh
 
