@@ -200,6 +200,11 @@ export PATH=${_targetPath}:${PATH/${_targetPath}:/}
   # PYTHONPATH for Go Scons
   #__appendPyPathSafely $HOME/src/goscons
 
+# for Python language
+  #export PYENV_ROOT="/usr/local/opt/pyenv"
+  #__appendPathSavely ${PYENV_ROOT}/bin
+  #if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
 # for Ruby language
   # RVM
     __sourcingConfigSafely "${HOME}/.rvm/scripts/rvm"

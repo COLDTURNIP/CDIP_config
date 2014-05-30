@@ -191,6 +191,11 @@ __sourcingConfigSafely()
     # PYTHONPATH for Go Scons
     #__appendPathSavely ${HOME}/src/goscons
 
+  # for Python
+    #export PYENV_ROOT="/usr/local/opt/pyenv"
+    #__appendPathSavely ${PYENV_ROOT}/bin
+    #if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
   # for Ruby
     # RVM
     #__sourcingConfigSafely "${HOME}/.rvm/scripts/rvm"
