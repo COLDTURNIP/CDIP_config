@@ -10,20 +10,31 @@
     email = coldturnip@gmail.com
 [core]
     editor = vim
+    excludesfile = /Users/coldturnip/.gitignore_global
     autocrlf = true
 
 ; Use git as the differ editor
 [diff]
     external = git_diff_wrapper
     tool = vimdiff
+    ;tool = Kaleidoscope
 
 [difftool]
     prompt = false
+
+[difftool "Kaleidoscope"]
+    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
+[mergetool "Kaleidoscope"]
+    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+    trustExitCode = true
 
 [pager]
     diff =
 
 [alias]
+    dt = difftool
+    mt = mergetool
     br = branch
     rb = rebase
     ;srb = svn rebase
