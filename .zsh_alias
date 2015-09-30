@@ -12,7 +12,7 @@ alias cls='clear'
 alias vi=vim
 #alias "tree=tree -A -I 'CVS|*~'"
 alias 'mkdir=mkdir -p'
-alias 'dus=du -ms * | sort -n'
+alias 'dus=du -hs * | sort -n'
 alias 'cd..=cd ..'
 alias 'grep=grep --color=auto'
 
@@ -51,3 +51,19 @@ alias emt='emacs -nw'
 
 # workaround for Ruby rake[]
 alias rake="noglob rake"
+
+# USB
+alias lsusb='system_profiler SPUSBDataType'
+
+# Docker
+#alias initdocker='eval "$(boot2docker shellinit)"'
+initdocker()
+{
+    if [[ "$#" != 1 ]]; then
+        echo "Usage: $0 <machine_name>"
+        echo
+        echo 'Use "docker-machine ls" to check available machines.'
+    else
+        eval "$(docker-machine env $1)"
+    fi
+}
