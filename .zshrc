@@ -5,14 +5,10 @@ SAVEHIST=10000
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/coldturnip/.zshrc'
+zstyle :compinstall filename "${HOME}/.zshrc"
 
 # End of lines added by compinstall
 
-
-#### Added by COLDTURNIP ####
-# proxy setting for ASUS
-#export http_proxy="user_name:passwd@addres.to.proxy:port"
 
 # next lets set some enviromental/shell pref stuff up
 #setopt no_flow_control
@@ -133,7 +129,7 @@ PROMPT='%B%F{black}/*** %F{cyan}%n%F{red}::%F{green}%m%F{black}[%F{yello}%1~%F{b
 RPROMPT='%B%F{black}%~ %b%F{white}(%B%F{yello}%?%b%f'
 
 # set $PATH
-__appendPathSavely()
+__appendPathSafely()
 {
     local oriTargetPath="$@"
     if [ ! \( -d ${oriTargetPath} \) ]; then
@@ -166,42 +162,57 @@ __sourcingConfigSafely()
   __sourcingConfigSafely ${HOME}/bin/cdipSrcUtils.sh
 
   # for ${HOME}/bin
-    __appendPathSavely ${HOME}/bin
+    __appendPathSafely ${HOME}/bin
+
+  # for Perforce version control system
+    export P4CONFIG='.p4settings'
+    export P4EDITOR=vim
+    export P4CLIENT=git-p4
+
+  # direnv
+    if which direnv 2>&1 >/dev/null ; then
+        eval "$(direnv hook zsh)"
+    else
+        echo "ZSH Warning: direnv is not installed."
+    fi
 
   # for Java development
     #export JAVA_HOME=/usr/lib/java-1.5.0-sun
     #export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
 
   # for Android development
-    #__appendPathSavely ${HOME}/tools/adt-bundle-mac-x86_64/sdk/platform-tools
-    #__appendPathSavely ${HOME}/tools/adt-bundle-mac-x86_64/sdk/tools
+    #__appendPathSafely ${HOME}/tools/adt-bundle-mac-x86_64/sdk/platform-tools
+    #__appendPathSafely ${HOME}/tools/adt-bundle-mac-x86_64/sdk/tools
 
   # for scala
     #SCALA_HOME=/home/coldturnip/bin/scala-2.8.0.RC1
-    #__appendPathSavely $SCALA_HOME/bin
+    #__appendPathSafely $SCALA_HOME/bin
 
   # for Go language
     # system variables for compiler
-    #export GOROOT=${HOME}/src/go
+    #export GOROOT=/usr/local/opt/go/libexec
+    #export GOHOSTARCH=amd64
+    #export GOHOSTOS=darwin
     #export GOARCH=amd64
     #export GOOS=darwin
-    #export GOBIN=${GOROOT}/bin
-    #__appendPathSavely ${GOBIN}
-
-    # PYTHONPATH for Go Scons
-    #__appendPathSavely ${HOME}/src/goscons
+    #export GOPATH=${HOME}
+    #export GOBIN=${HOME}/bin
+    #__appendPathSafely ${GOBIN}
 
   # for Python
     #export PYENV_ROOT="/usr/local/opt/pyenv"
-    #__appendPathSavely ${PYENV_ROOT}/bin
-    #if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+    #__appendPathSafely ${PYENV_ROOT}/bin
+    if which pyenv > /dev/null; then
+      eval "$(pyenv init -)"
+      eval "$(pyenv virtualenv-init -)"
+    fi
 
   # for Ruby
     # RVM
     #__sourcingConfigSafely "${HOME}/.rvm/scripts/rvm"
 
   # end set $PATH
-  unfunction __appendPathSavely
+  unfunction __appendPathSafely
   unfunction __sourcingConfigSafely
 
 # Set less options
@@ -288,3 +299,5 @@ sudo-command-line() {
 zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
 
+
+export PATH="$PATH:${HOME}/.rvm/bin" # Add RVM to PATH for scripting

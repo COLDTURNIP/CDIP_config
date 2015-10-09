@@ -176,6 +176,13 @@ export PATH=${_targetPath}:${PATH/${_targetPath}:/}
   # OSX only: correct colors for iTerm2
   __sourcingConfigSafely ${HOME}/.iterm2_palette.sh
 
+# direnv
+    if which direnv 2>&1 >/dev/null ; then
+      eval "$(direnv hook bash)"
+    else
+      echo "BASH Warning: direnv is not installed."
+    fi
+
 # for Java development
   export JAVA_HOME=/usr/lib/java-1.5.0-sun
   export CLASSPATH=.:${JAVA_HOME}/lib:${JAVA_HOME}/jre/lib
@@ -191,19 +198,25 @@ export PATH=${_targetPath}:${PATH/${_targetPath}:/}
 
 # for Go language
   # system variables for compiler
-  export GOROOT=${HOME}/src/go
-  export GOARCH=amd64
-  export GOOS=linux
-  export GOBIN=${GOROOT}/bin
-  __appendPathSafely ${GOBIN}
+    #export GOROOT=/usr/local/opt/go/libexec
+    #export GOHOSTARCH=amd64
+    #export GOHOSTOS=darwin
+    #export GOARCH=amd64
+    #export GOOS=darwin
+    #export GOPATH=${HOME}
+    #export GOBIN=${HOME}/bin
+    #__appendPathSafely ${GOBIN}
 
   # PYTHONPATH for Go Scons
   #__appendPyPathSafely $HOME/src/goscons
 
 # for Python language
-  #export PYENV_ROOT="/usr/local/opt/pyenv"
-  #__appendPathSavely ${PYENV_ROOT}/bin
-  #if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+  #export PYENV_ROOT="$HOME/tool/pyenv"
+  #__appendPathSafely ${PYENV_ROOT}/bin
+  #if which pyenv > /dev/null; then
+  #  eval "$(pyenv init -)"
+  #  eval "$(pyenv virtualenv-init -)"
+  #fi
 
 # for Ruby language
   # RVM
@@ -221,4 +234,7 @@ unset __appendPathSafely
 unset __appendPyPathSafely
 unset __sourcingConfigSafely
 #unset __cdipShowPath
+
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
