@@ -11,10 +11,11 @@
 [core]
     editor = vim
     excludesfile = /Users/coldturnip/.gitignore_global
-    autocrlf = true
+    ;autocrlf = true
 
 ; Use git as the differ editor
 [diff]
+    algorithm = histogram
     external = git_diff_wrapper
     tool = vimdiff
     ;tool = Kaleidoscope
@@ -51,4 +52,4 @@
     rsh = reset --hard
 
 [push]
-	default = simple
+    default = simple
