@@ -205,6 +205,7 @@ export PATH=${_targetPath}:${PATH/${_targetPath}:/}
     #export GOOS=darwin
     #export GOPATH=${HOME}
     #export GOBIN=${HOME}/bin
+    #export GO15VENDOREXPERIMENT=1
     #__appendPathSafely ${GOBIN}
 
   # PYTHONPATH for Go Scons

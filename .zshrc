@@ -197,6 +197,7 @@ __sourcingConfigSafely()
     #export GOOS=darwin
     #export GOPATH=${HOME}
     #export GOBIN=${HOME}/bin
+    #export GO15VENDOREXPERIMENT=1
     #__appendPathSafely ${GOBIN}
 
   # for Python
