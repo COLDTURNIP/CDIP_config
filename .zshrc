@@ -210,7 +210,8 @@ __sourcingConfigSafely()
 
   # for Ruby
     # RVM
-    #__sourcingConfigSafely "${HOME}/.rvm/scripts/rvm"
+    # note: shell function sourcing is moved to .zlogin
+    #__appendPathSafely "${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 
   # end set $PATH
   unfunction __appendPathSafely
@@ -299,6 +300,3 @@ sudo-command-line() {
 }
 zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
-
-
-export PATH="$PATH:${HOME}/.rvm/bin" # Add RVM to PATH for scripting

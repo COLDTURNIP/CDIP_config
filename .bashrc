@@ -221,8 +221,8 @@ export PATH=${_targetPath}:${PATH/${_targetPath}:/}
 
 # for Ruby language
   # RVM
-    __sourcingConfigSafely "${HOME}/.rvm/scripts/rvm"
-    __appendPathSafely ${HOME}/.rvm/bin # Add RVM to PATH for scripting
+    # note: shell source loading is moved to .bash_profile
+    #__appendPathSafely "${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 
 
 # for Google Storage client (gsutil)
@@ -235,7 +235,3 @@ unset __appendPathSafely
 unset __appendPyPathSafely
 unset __sourcingConfigSafely
 #unset __cdipShowPath
-
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
