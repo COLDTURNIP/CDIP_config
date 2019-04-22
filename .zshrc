@@ -1,132 +1,108 @@
-# Lines configured by zsh-newuser-install
+# initialization
+if [[ -x $(which emacs) ]]
+then
+    export EDITOR="emacs"
+elif [[ -x $(which vim) ]]
+then
+    export EDITOR="vim"
+fi
+export USE_EDITOR=${EDITOR}
+export VISUAL=${EDITOR}
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
-bindkey -e
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
+setopt NO_BG_NICE
+bindkey -e # emacs-mode command line editing
 zstyle :compinstall filename "${HOME}/.zshrc"
+export EDITOR="vim"
+export ZPLUG_HOME="${HOME}/.zplug"
 
-# End of lines added by compinstall
+# user profile
+source "${HOME}/.profile"
+
+# zplug initialization
+#[[ ! -f ${ZPLUG_HOME}/init.zsh ]] && git clone https://github.com/zplug/zplug "$ZPLUG_HOME"
+source "${ZPLUG_HOME}/init.zsh"
+
+# zplug self-management
+#zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+# zplug plugins
+zplug "mafredri/zsh-async", from:github, defer:0
+zplug "lib/completion", from:oh-my-zsh
+#zplug "lib/history", from:oh-my-zsh
+#zplug "lib/key-bindings", from:oh-my-zsh
+#zplug "lib/termsupport", from:oh-my-zsh
+zplug 'hlissner/zsh-autopair', defer:2
+zplug 'zdharma/fast-syntax-highlighting', defer:2, hook-load:'FAST_HIGHLIGHT=()'
+
+# zsh startup speed debugging
+# (need to install python-psutil: pip install psutil)
+zplug "paulmelnikow/zsh-startup-timer"
+
+# theme
+SPACESHIP_PROMPT_ORDER=(
+  user          # Username section
+  host          # Hostname section
+  time
+  dir           # Current directory section
+  git           # Git section (git_branch + git_status)
+  exec_time     # Execution time
+  line_sep      # Line break
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+SPACESHIP_RPROMPT_ORDER=(
+  pyenv
+  golang
+  rust
+  node
+  docker
+)
+SPACESHIP_PROMPT_ADD_NEWLINE=false
+SPACESHIP_USER_PREFIX=''
+SPACESHIP_USER_SUFFIX=''
+SPACESHIP_HOST_SHOW=always
+SPACESHIP_HOST_PREFIX='@'
+SPACESHIP_TIME_SHOW=true
+SPACESHIP_TIME_PREFIX='['
+SPACESHIP_TIME_SUFFIX=']'
+SPACESHIP_DIR_PREFIX=' '
+SPACESHIP_DIR_TRUNC=0
+SPACESHIP_DIR_TRUNC_REPO=false
+SPACESHIP_DIR_LOCK_SYMBOL='(!)'
+SPACESHIP_CHAR_SYMBOL='» '
+zplug 'denysdovhan/spaceship-prompt', use:spaceship.zsh, from:github, as:theme
+
+# zplug finalize
+#zplug check || zplug install
+zplug load
+
+# zsh misc settings
+  # returning command and folder completion when line is empty
+  blanktab() { [[ $#BUFFER == 0 ]] && CURSOR=3 zle list-choices || zle expand-or-complete }
+  zle -N blanktab && bindkey '^I' blanktab
+
+  # alias
+  [[ -f "${HOME}/.aliases" ]] && source "${HOME}/.aliases"
+  [[ -f "${HOME}/.zsh_alias" ]] && source "${HOME}/.zsh_alias"
+
+  # keyboard six-key
+  bindkey "\e[1~" beginning-of-line
+  bindkey "\e[3~" delete-char
+  bindkey "\e[4~" end-of-line
+  # Bind special keys according to readline configuration
+  #eval "$(sed -n 's/^/bindkey /; s/: / /p' /etc/inputrc)" > /dev/null
+  # Bind key for Mac
+  #bindkey "^[[H" beginning-of-line
+  #bindkey "^[[F" end-of-line
+
+  # show time spent for long-runing command (>30 sec)
+  export REPORTTIME=30
 
 
-# next lets set some enviromental/shell pref stuff up
-#setopt no_flow_control
-setopt    all_export
-setopt    auto_pushd    # Make cd push the old directory onto the directory stack.
-#setopt    auto_remove_slash
-#setopt    auto_resume   # tries to resume command of same name
-setopt    bad_pattern
-setopt no_bg_nice       # do NOT nice bg commands
-setopt    brace_ccl
-#setopt    correct_all
-setopt    cdable_vars
-setopt    chase_links
-setopt    clobber       # Don’t write over existing files with >, use >! instead
-setopt no_csh_junkie_loops
-setopt no_csh_junkie_quotes
-setopt    extended_glob # Treat the [#~^] characters as part of patterns for filename
-setopt    hash_cmds     # turns on hashing
-setopt    hash_dirs
-setopt    hash_list_all
-setopt no_hup
-setopt no_ignore_braces
-setopt no_ignore_eof    # disable this to terminat session with EOF (C-d)
-setopt    interactive_comments
-#setopt    function_argzero
-setopt    ksh_arrays    # set 0-based array indexing
-setopt    long_list_jobs
-setopt    magic_equal_subst
-setopt no_mark_dirs
-setopt    multios
-setopt    nomatch
-setopt    notify
-setopt no_null_glob
-setopt    path_dirs
-setopt    posix_builtins
-setopt no_print_exit_value
-setopt    pushd_ignore_dups
-setopt no_pushd_minus
-setopt    pushd_to_home
-setopt    rc_expand_param
-setopt no_rc_quotes
-setopt no_rm_star_silent
-setopt no_sh_file_expansion
-setopt    short_loops
-setopt no_sun_keyboard_hack
-setopt no_verbose
-
-# Auto complete
-setopt    auto_list        # these two should be turned off
-setopt    auto_menu
-setopt    auto_param_keys
-setopt    complete_in_word
-setopt no_csh_null_glob
-setopt    glob
-setopt no_glob_assign
-setopt    glob_complete
-setopt no_glob_dots
-setopt no_glob_subst
-setopt no_list_ambiguous
-setopt    list_types
-setopt no_menu_complete    # this will override automenu
-setopt    complete_in_word
-autoload -U compinit
-compinit
-
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*' menu select
-zstyle ':completion:*:*:default' force-list always
-zstyle ':completion:*' select-prompt '%SSelect:  lines: %L  matches: %M  [%p]'
-
-zstyle ':completion:*:match:*' original only
-zstyle ':completion::prefix-1:*' completer _complete
-zstyle ':completion:predict:*' completer _complete
-zstyle ':completion:incremental:*' completer _complete _correct
-zstyle ':completion:*' completer _complete _prefix _correct _prefix _match _approximate
-
-# Colored complete menu
-[ -f /etc/DIR_COLORS ] && eval $(dircolors -b /etc/DIR_COLORS)
-export ZLSCOLORS="${LS_COLORS}"
-zmodload  zsh/complist
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31' 
-
-zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*:match:*' original only
-zstyle ':completion:*:approximate:*' max-errors 1 numeric
-
-compdef pkill=kill
-compdef pkill=killall
-zstyle ':completion:*:*:kill:*' menu yes select
-zstyle ':completion:*:processes' command 'ps -au$USER'
-
-# Kill completion
-compdef pkill=kill
-compdef pkill=killall
-zstyle ':completion:::kill:' menu yes select
-zstyle ':completion:::::processes' force-list always
-zstyle ':completion::processes' command 'ps -au$USER'
-
-# Group matches and Describe
-zstyle ':completion:*:matches' group 'yes'
-zstyle ':completion:*:options' description 'yes'
-zstyle ':completion:*:options' auto-description '%d'
-zstyle ':completion:*:descriptions' format $'\e[01;33m -- %d --\e[0m'
-zstyle ':completion:*:messages' format $'\e[01;35m -- %d --\e[0m'
-zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
-
-# Aliases
-source ${HOME}/.zsh_alias
-
-# Set prompt
-autoload -Uz promptinit
-promptinit
-#prompt walters
-#PS1=$'%{\e[0;37m%}%B%*%b|%{\e[0;33m%}%m:%{\e[0;37m%}%~%(!.#.$) %{\e[00m%}'
-PROMPT='%B%F{black}/*** %F{cyan}%n%F{red}::%F{green}%m%F{black}[%F{yello}%1~%F{black}] ***/%f%b
-%B%F{black}··» %f%b'
-RPROMPT='%B%F{black}%~ %b%F{white}(%B%F{yello}%?%b%f'
 
 # set $PATH
 __appendPathSafely()
@@ -165,9 +141,9 @@ __sourcingConfigSafely()
     __appendPathSafely ${HOME}/bin
 
   # for Perforce version control system
-    export P4CONFIG='.p4settings'
-    export P4EDITOR=vim
-    export P4CLIENT=git-p4
+    #export P4CONFIG='.p4settings'
+    #export P4EDITOR=vim
+    #export P4CLIENT=git-p4
 
   # direnv
     if which direnv 2>&1 >/dev/null ; then
@@ -201,7 +177,7 @@ __sourcingConfigSafely()
     #__appendPathSafely ${GOBIN}
 
   # for Python
-    #export PYENV_ROOT="/usr/local/opt/pyenv"
+    export PYENV_ROOT="/usr/local/opt/pyenv"
     #__appendPathSafely ${PYENV_ROOT}/bin
     if which pyenv > /dev/null; then
       eval "$(pyenv init -)"
@@ -213,90 +189,11 @@ __sourcingConfigSafely()
     # note: shell function sourcing is moved to .zlogin
     #__appendPathSafely "${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 
+  # for Please build system
+    # https://please.build
+    source <(plz --completion_script)
+
+
   # end set $PATH
   unfunction __appendPathSafely
   unfunction __sourcingConfigSafely
-
-# Set less options
-if [[ -x $(which less) ]]
-then
-    export PAGER="less"
-    export LESS="--ignore-case --LONG-PROMPT --QUIET --chop-long-lines -Sm --RAW-CONTROL-CHARS --quit-if-one-screen --no-init"
-    if [[ -x $(which lesspipe.sh) ]]
-    then
-    LESSOPEN="| lesspipe.sh %s"
-    export LESSOPEN
-    fi
-fi
-
-# Set default editor
-if [[ -x $(which emacs) ]]
-then
-    export EDITOR="emacs"
-elif [[ -x $(which vim) ]]
-then
-    export EDITOR="vim"
-fi
-export USE_EDITOR=${EDITOR}
-export VISUAL=${EDITOR}
-
-# Zsh settings for history
-export HISTIGNORE="&:ls:[bf]g:exit:reset:clear:cd:cd ..:cd.."
-export HISTSIZE=25000
-export HISTFILE=~/.zsh_history
-export SAVEHIST=10000
-setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_REDUCE_BLANKS
-setopt HIST_VERIFY
-setopt extended_history        # puts timestamps in the history
-setopt bang_hist
-
-# Set six-key on keyboard
-bindkey "\e[1~" beginning-of-line
-bindkey "\e[3~" delete-char
-bindkey "\e[4~" end-of-line
-# Bind special keys according to readline configuration
-#eval "$(sed -n 's/^/bindkey /; s/: / /p' /etc/inputrc)" > /dev/null
-# Bind key for Mac
-#bindkey "^[[H" beginning-of-line
-#bindkey "^[[F" end-of-line
-
-# Say how long a command took, if it took more than 30 seconds
-export REPORTTIME=30
-
-# Zsh spelling correction options
-setopt CORRECT
-
-# Prompts for confirmation after 'rm *' etc
-# Helps avoid mistakes like 'rm * o' when 'rm *.o' was intended
-#setopt RM_STAR_WAIT
-
-# Background processes aren't killed on exit of shell
-setopt AUTO_CONTINUE
-
-# Don’t nice background processes
-setopt NO_BG_NICE
-
-# Watch other user login/out
-watch=notme
-export LOGCHECK=60
-
-# Enable color support of ls
-if [[ "${TERM}" != "dumb" ]]; then
-  if [[ -x `which dircolors` ]]; then
-    eval `dircolors -b`
-    alias 'ls=ls --color=auto'
-  fi
-fi
-
-# Command sudo adder: ESC EXC to add sudo at begining
-sudo-command-line() {
-  [[ -z ${BUFFER} ]] && zle up-history
-  [[ ${BUFFER} != sudo\ * ]] && BUFFER="sudo ${BUFFER}"
-  zle end-of-line
-}
-zle -N sudo-command-line
-bindkey "\e\e" sudo-command-line
