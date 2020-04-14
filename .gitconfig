@@ -42,7 +42,9 @@
     ;sci = svn dcommit
     st = status
     ci = commit
-    co = checkout
+    ;co = checkout ; replaced by switch and restore
+    sw = switch
+    rt = restore
     ;pu = pull
     ;pullr = pull --rebase
     ;pur = pull --rebase
