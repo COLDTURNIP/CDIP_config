@@ -1,1 +1,5 @@
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+# ====================
+# Zim Plugin Framework
+# ==================== {{{
+  [[ "${ZIM_HOME}/login_init.zsh" ]] && source "${ZIM_HOME}/login_init.zsh" -q &!
+# }}}
