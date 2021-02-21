@@ -12,7 +12,6 @@ alias cls='clear'
 alias vi=nvim
 #alias "tree=tree -A -I 'CVS|*~'"
 alias 'mkdir=mkdir -p'
-alias 'dus=du -hs * | sort -n'
 alias 'cd..=cd ..'
 alias 'grep=grep --color=auto'
 
@@ -21,49 +20,10 @@ alias tmux='TERM=xterm-256color tmux'
 
 # Python
 alias py='python'
-alias jy='jython'
 alias ipy='ipython'
-
-# system control
-alias psmake="ps aux | grep 'make'"
-
-# Global aliases (expand whatever their position)
-#  e.g. find . E L
-alias -g L='| less'
-alias -g H='| head'
-alias -g S='| sort'
-alias -g T='| tail'
-alias -g V='| vim - -R'
-alias -g N='> /dev/null'
-alias -g E='2> /dev/null'
 
 # Quick find
 f() {
     echo "find . -iname \"*$1*\""
     find . -iname "*$1*"
-}
-
-# emacs
-alias emacs='LC_CTYPE=zh_TW.UTF-8 emacs'
-alias em='emacsclient -n -a "vim" -c'
-alias emd='emacs --daemon'
-alias emt='emacs -nw'
-
-# workaround for Ruby rake[]
-alias rake="noglob rake"
-
-# USB
-alias lsusb='system_profiler SPUSBDataType'
-
-# Docker
-#alias initdocker='eval "$(boot2docker shellinit)"'
-initdocker()
-{
-    if [[ "$#" != 1 ]]; then
-        echo "Usage: $0 <machine_name>"
-        echo
-        echo 'Use "docker-machine ls" to check available machines.'
-    else
-        eval "$(docker-machine env $1)"
-    fi
 }
