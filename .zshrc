@@ -42,7 +42,7 @@
 
   # for romkatv/powerlevel10k
   # To customize prompt, run `p10k configure`
-  [[ -f "${HOME}/.zsh/p10k.zsh" ]] && source "${HOME}/.zsh/p10k.zsh"
+  [[ -f "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
 # }}} Plugin Settings
 
 # ===============================
@@ -95,7 +95,7 @@
 
   # show time spent for long-runing command (>30 sec)
   export REPORTTIME=30
-# }}} Post Initialization 
+# }}} Post Initialization
 
 
 # ==============================
