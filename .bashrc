@@ -173,24 +173,17 @@ export PATH=${_targetPath}:${PATH/${_targetPath}:/}
   # Set color for less and man page
   __sourcingConfigSafely ${HOME}/.sh_manpage_color
 
-  # OSX only: correct colors for iTerm2
-  __sourcingConfigSafely ${HOME}/.iterm2_palette.sh
-
 # direnv
-    if which direnv 2>&1 >/dev/null ; then
-      eval "$(direnv hook bash)"
-    else
-      echo "BASH Warning: direnv is not installed."
-    fi
+  # note: shell source loading is moved to .bash_profile
 
 # for Java development
-  export JAVA_HOME=/usr/lib/java-1.5.0-sun
-  export CLASSPATH=.:${JAVA_HOME}/lib:${JAVA_HOME}/jre/lib
+  #export JAVA_HOME=/usr/lib/java-1.5.0-sun
+  #export CLASSPATH=.:${JAVA_HOME}/lib:${JAVA_HOME}/jre/lib
 
 # for Android development
-  __appendPathSafely ${HOME}/tools/adt-bundle-mac-x86_64/sdk/platform-tools
-  export CCACHE_DIR=$HOME/.android_ccache
-  export USE_CCACHE=1
+  #__appendPathSafely ${HOME}/tools/adt-bundle-mac-x86_64/sdk/platform-tools
+  #export CCACHE_DIR=$HOME/.android_ccache
+  #export USE_CCACHE=1
 
 # for scala
   #SCALA_HOME=/home/coldturnip/bin/scala-2.8.0.RC1
@@ -212,12 +205,8 @@ export PATH=${_targetPath}:${PATH/${_targetPath}:/}
   #__appendPyPathSafely $HOME/src/goscons
 
 # for Python language
-  #export PYENV_ROOT="$HOME/tool/pyenv"
-  #__appendPathSafely ${PYENV_ROOT}/bin
-  #if which pyenv > /dev/null; then
-  #  eval "$(pyenv init -)"
-  #  eval "$(pyenv virtualenv-init -)"
-  #fi
+  # note: shell source loading is moved to .bash_profile
+  __appendPathSafely ${PYENV_ROOT}/bin
 
 # for Ruby language
   # RVM

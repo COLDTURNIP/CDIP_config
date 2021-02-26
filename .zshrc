@@ -167,15 +167,10 @@
     #__appendPathSafely ${GOBIN}
 
   # for Python
-    #export PYENV_ROOT="/usr/local/opt/pyenv"
+    # note: shell function sourcing is moved to .zlogin
     #__appendPathSafely ${PYENV_ROOT}/bin
-    #if which pyenv > /dev/null; then
-    #  eval "$(pyenv init -)"
-    #  eval "$(pyenv virtualenv-init -)"
-    #fi
 
   # for Ruby
-    # RVM
     # note: shell function sourcing is moved to .zlogin
     #__appendPathSafely "${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 
