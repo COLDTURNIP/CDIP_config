@@ -1,3 +1,10 @@
+# Note:
+# - zshenv is sourced every shell initialization
+#   (thus it should only include envvar-related settings)
+# - zprofile is sourced only in login shell, before zshrc
+# - zshrc (current file) is source in every interactive shells
+# - zlogin is sourced only in login shell, after zshrc
+
 # ==================
 # Pre Initialization
 # ================== {{{
@@ -111,13 +118,11 @@
     #( which direnv 2>&1 >/dev/null ) && eval "$(direnv hook zsh)"
 
   # for Python
-    #PYENV_ROOT="/usr/local/opt/pyenv"
+    # PYENV_ROOT defined in .zprofile because of need of non-needed shells
     #if [[ -d "$PYENV_ROOT" ]]; then
     #  __must_append_path "$PYENV_ROOT/bin"
     #  eval "$(pyenv init -)"
     #  eval "$(pyenv virtualenv-init -)"
-    #else
-    #  unset PYENV_ROOT
     #fi
 
   # for Ruby
@@ -156,7 +161,7 @@
 # ==================
 # End of Shell Initialization
 # ================== {{{
-  # destroy PATH management utils {{{
+  # destroy PATH management utils (defineded in .zprofile) {{{
     unfunction __try_source_script
     unfunction __try_append_path
     unfunction __must_append_path
