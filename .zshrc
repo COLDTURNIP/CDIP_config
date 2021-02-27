@@ -4,9 +4,7 @@
   # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
   # Initialization code that may require console input (password prompts, [y/n]
   # confirmations, etc.) must go above this block; everything else may go below.
-  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-  fi
+  __try_source_script "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
   export LC_ALL=en_US.UTF-8
   export LANG=en_US.UTF-8
@@ -42,7 +40,7 @@
 
   # for romkatv/powerlevel10k
   # To customize prompt, run `p10k configure`
-  [[ -f "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
+  __try_source_script "$HOME/.p10k.zsh"
 # }}} Plugin Settings
 
 # ===============================
@@ -80,8 +78,8 @@
   zle -N blanktab && bindkey '^I' blanktab
 
   # alias
-  [[ -f "${HOME}/.aliases" ]] && source "${HOME}/.aliases"
-  [[ -f "${HOME}/.zsh_alias" ]] && source "${HOME}/.zsh_alias"
+  __try_source_script "$HOME/.aliases"
+  __try_source_script "$HOME/.zsh_alias"
 
   # keyboard six-key
   bindkey "\e[1~" beginning-of-line
@@ -101,58 +99,42 @@
 # ==============================
 # PATH and 3rd Party Shell Tools
 # ============================== {{{
-  # PATH management utils {{{
-    __appendPathSafely()
-    {
-        local oriTargetPath="$@"
-        if [ ! \( -d ${oriTargetPath} \) ]; then
-            printf "ZSH Error: Invalid path %s\n    Please check ~/.zshrc\n" ${oriTargetPath}
-        else
-            local targetPath=$(echo ${oriTargetPath} | sed "s/\/\+$//")
-            export PATH=${targetPath}:${PATH/$targetPath/}
-        fi
-    }
-
-    __sourcingConfigSafely()
-    {
-        if [[ -s $@ ]]; then
-            source $@
-        else
-            printf "ZSH Error: Invalid sourcing path %s\n    Please check ~/.zshrc\n" $@
-        fi
-    }
-  # }}}
+  # Note:
+  # - only configuration for interactive shell goes here
+  # - PATH managed in .zshenv
+  # - shell-level tool initialization in .zlogin
 
   # Set color for less and man page
-    __sourcingConfigSafely ${HOME}/.sh_manpage_color
-
-  # Import my script functions
-    __sourcingConfigSafely ${HOME}/.zsh/plugin-setup.zsh
-    #__sourcingConfigSafely ${HOME}/bin/cdipPathUtils.sh
-    #__sourcingConfigSafely ${HOME}/bin/cdipSrcUtils.sh
-
-  # for ${HOME}/bin
-    __appendPathSafely ${HOME}/bin
-
-  # for Perforce version control system
-    #export P4CONFIG='.p4settings'
-    #export P4EDITOR=vim
-    #export P4CLIENT=git-p4
+    #__try_source_script "$HOME/.sh_manpage_color"
 
   # for direnv
-    #[[ -x $(which direnv 2>&1 >/dev/null) ]] && eval "$(direnv hook zsh)"
+    #( which direnv 2>&1 >/dev/null ) && eval "$(direnv hook zsh)"
+
+  # for Python
+    #PYENV_ROOT="/usr/local/opt/pyenv"
+    #if [[ -d "$PYENV_ROOT" ]]; then
+    #  __must_append_path "$PYENV_ROOT/bin"
+    #  eval "$(pyenv init -)"
+    #  eval "$(pyenv virtualenv-init -)"
+    #else
+    #  unset PYENV_ROOT
+    #fi
+
+  # for Ruby
+    #__try_source_script "$HOME/.rvm/scripts/rvm"
+    #( which rbenv 2>&1 >/dev/null) && eval "$(rbenv init - zsh)"
 
   # for Java development
     #export JAVA_HOME=/usr/lib/java-1.5.0-sun
     #export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
 
   # for Android development
-    #__appendPathSafely ${HOME}/tool/adt-bundle-mac-x86_64/sdk/platform-tools
-    #__appendPathSafely ${HOME}/tool/adt-bundle-mac-x86_64/sdk/tools
+    #__try_append_path ${HOME}/tools/adt-bundle-mac-x86_64/sdk/platform-tools
+    #__try_append_path ${HOME}/tools/adt-bundle-mac-x86_64/sdk/tools
 
   # for scala
     #SCALA_HOME=/home/coldturnip/bin/scala-2.8.0.RC1
-    #__appendPathSafely $SCALA_HOME/bin
+    #__try_append_path $SCALA_HOME/bin
 
   # for Go
     # system variables for compiler
@@ -164,25 +146,20 @@
     #export GOPATH=${HOME}
     #export GOBIN=${HOME}/bin
     #export GO15VENDOREXPERIMENT=1
-    #__appendPathSafely ${GOBIN}
+    #__try_append_path ${GOBIN}
 
-  # for Python
-    # note: shell function sourcing is moved to .zlogin
-    #__appendPathSafely ${PYENV_ROOT}/bin
+  # for Rust
+    #__try_append_path "$HOME/.cargo/bin"
 
-  # for Ruby
-    # note: shell function sourcing is moved to .zlogin
-    #__appendPathSafely "${HOME}/.rvm/bin" # Add RVM to PATH for scripting
-
-  # for OCaml
-    #__sourcingConfigSafely ${HOME}/.opam/opam-init/init.zsh
-
-  # for Please build system
-    # https://please.build
-    #source <(plz --completion_script)
-
-  # destroy PATH management utils {{{
-    unfunction __appendPathSafely
-    unfunction __sourcingConfigSafely
-  # }}}
 # }}} PATH and 3rd Party Shell Tools
+
+# ==================
+# End of Shell Initialization
+# ================== {{{
+  # destroy PATH management utils {{{
+    unfunction __try_source_script
+    unfunction __try_append_path
+    unfunction __must_append_path
+    unfunction __append_path
+  # }}}
+# }}}
