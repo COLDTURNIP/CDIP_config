@@ -1,3 +1,0 @@
-changeset = "\033[33mchangeset: {rev}:{node}\033[0m\n{branches}{tags}{parents}user: {author}\ndate: {date|date}\n{files}{file_copies}\n{desc|strip}\n\n"
-file = " * {file}\n"
-
