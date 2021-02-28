@@ -5,6 +5,46 @@
 # - zshrc (current file) is source in every interactive shells
 # - zlogin is sourced only in login shell, after zshrc
 
+# =========================
+# PATH management utilities
+# ========================= {{{
+  __append_path()
+  {
+    while IFS=":" read -rA path_array; do
+      for entry in "${path_array[@]}" ; do
+        [[ "$entry" == "$1" ]] && return
+      done
+    done <<< $PATH
+    export PATH="$1:$PATH"
+  }
+
+  __try_append_path()
+  {
+    local new_entry=$(echo $1 | sed 's#/*$##')
+    [[ -d "$new_entry" ]] && __append_path "$new_entry"
+  }
+
+  __must_append_path()
+  {
+    local new_entry=$(echo $1 | sed 's#/*$##')
+    if [[ -d "$new_entry" ]]; then
+      __append_path "$new_entry"
+      return $?
+    else
+      >&2 echo "error while appending PATH: \"$new_entry\" is not a valid directory"
+      return 1
+    fi
+  }
+
+  __try_source_script()
+  {
+    [[ -s "$1" ]] && source "$1"
+  }
+
+  __try_append_path ${HOME}/bin 2>&1 >/dev/null || true
+# }}}
+
+
 # ==================
 # Pre Initialization
 # ================== {{{
@@ -49,6 +89,7 @@
   # To customize prompt, run `p10k configure`
   __try_source_script "$HOME/.p10k.zsh"
 # }}} Plugin Settings
+
 
 # ===============================
 # Plugin Framework Initialization
@@ -157,6 +198,7 @@
     #__try_append_path "$HOME/.cargo/bin"
 
 # }}} PATH and 3rd Party Shell Tools
+
 
 # ==================
 # End of Shell Initialization
