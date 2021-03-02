@@ -1,4 +1,3 @@
-echo 'sourcing bashrc'
 # Note:
 # - bashrc (current file) is source only in non-interactive shells
 # - bash_profile is sourced only in login shell, after bashrc

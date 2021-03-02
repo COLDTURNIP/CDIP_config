@@ -3,7 +3,6 @@
 # - bash_profile is sourced only in login shell, after bashrc
 # - profile (current file) is sourced only in login shell, after bash_profile
 #   (may also read by Zsh in compatibility mode)
-echo 'soucing .profile'
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
